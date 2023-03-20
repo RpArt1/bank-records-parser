@@ -1,0 +1,23 @@
+#!/bin/bash
+# -b bank 
+# -i input file
+while getopts ":b:i:" opt; do
+  case $opt in
+    b) bank_name="$OPTARG"
+    ;;
+    i) path_to_file="$OPTARG"
+    ;;
+    \?) echo " " >&2
+    ;;
+  esac
+done
+
+if [ -z "${bank_name}" ] || [ -z "${path_to_file}" ]; then
+    echo "Missing bank name, path to file or both ";
+    echo "Run scripts with proper arguments: 'mbank -i path-to-input-file  -b bank name'";
+    echo "Allowed banks names: [millelnium or mbank]" ;
+    exit 1;
+fi
+
+
+/usr/bin/python  /home/mrr/tools/mbank/main.py -b "${bank_name}" -i "${path_to_file}"
